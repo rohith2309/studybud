@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        gap: 2rem;
+        padding: 2rem;
+    }
+    .topic-list, .room-list, .activity-list {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .room-item {
+        background-color: white;
+        border-radius: 4px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .room-actions {
+        margin-bottom: 0.5rem;
+    }
+    .room-actions a {
+        margin-right: 0.5rem;
+        text-decoration: none;
+        color: #007bff;
+    }
+    h1, h3, h5 {
+        color: #333;
+    }
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .create-room-btn {
+        display: inline-block;
+        background-color: #28a745;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+    .create-room-btn:hover {
+        background-color: #218838;
+        text-decoration: none;
+    }
+</style>
+<div class="home-container">
+    <div class="topic-list">
+        {% include "base/topics.html" %}
+    </div>
+
+    <div class="room-list">
+        <h1>Welcome to HOME</h1>
+        <h5>{{ room_count }} Rooms Available</h5>
+        <a href="{% url 'new_room' %}" class="create-room-btn">Create Room</a>
+        {% include "base/feed.html" %}
+    </div>
+
+    <div class="activity-list">
+        {% include "base/activity_component.html" %} 
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}

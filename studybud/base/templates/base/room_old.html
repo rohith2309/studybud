@@ -1,0 +1,53 @@
+{% extends 'main.html' %} {% block content %}
+<style>
+  .room-conatiner {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+  
+  
+</style>
+
+<div class="room-conatiner">
+  <div>
+    <h1>{{room.id}}========{{room.name}}</h1>
+    <h2>{{room.description}}</h2>
+    <div class="comment-wrapper">
+      <h3>Threads</h3>
+      <hr />
+      {% for msg in room_messages %}
+      <div>
+        {% if request.user == msg.user %}
+        <a href="{% url 'delete_msg' msg.id %}">delete</a>
+        {% endif %}
+        <small>@{{msg.user}} {{msg.created|timesince}}</small>
+        <p>{{msg.body}}</p>
+        <hr />
+      </div>
+      {% endfor %}
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="comment-form">
+      <form method="POST" action="">
+        {% csrf_token %}
+        <input
+          type="text"
+          name="body"
+          placeholder="write down your thoughts..."
+        />
+      </form>
+    </div>
+    {% endif %}
+  </div>
+  <div>
+    <h3>PARTICIPANTS</h3>
+    <hr>
+    {% for part in participants %}
+    <div>
+
+      <p>{{part.username}}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<h3>{% endblock content %}</h3>
